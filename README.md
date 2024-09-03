@@ -1,4 +1,5 @@
-# WordEdit
+![wordscript](https://github.com/user-attachments/assets/aa391c52-9b39-4237-a5e8-94f612d66fde)
+
 
 WordEdit es una aplicación construida con Vite y React que permite generar archivos de Word (.docx) a partir de archivos CSV. Esta herramienta es ideal para automatizar la creación de documentos personalizados basados en datos estructurados.
 
