@@ -10,7 +10,8 @@ export default function DragWindowRegion({ title }: DragWindowRegionProps) {
         <div className="flex w-screen items-stretch justify-between">
             <div className="draglayer w-full">
                 {title && (
-                    <div className="flex flex-1 select-none whitespace-nowrap p-2 text-xs text-gray-400">
+                    <div className="flex flex-1 select-none whitespace-nowrap p-2 text-xs text-gray-400 items-center gap-x-1">
+                        <img src="/wordscript.svg" alt="" className="h-5"/>
                         {title}
                     </div>
                 )}
@@ -26,7 +27,7 @@ function WindowButtons() {
             <button
                 title="Minimize"
                 type="button"
-                className="p-2 hover:bg-slate-300"
+                className="p-2 hover:bg-slate-300 transition duration-200"
                 onClick={minimizeWindow}
             >
                 <svg aria-hidden="true" role="img" width="12" height="12" viewBox="0 0 12 12">
@@ -36,7 +37,7 @@ function WindowButtons() {
             <button
                 title="Maximize"
                 type="button"
-                className="p-2 hover:bg-slate-300"
+                className="p-2 hover:bg-slate-300 transition duration-200"
                 onClick={maximizeWindow}
             >
                 <svg aria-hidden="true" role="img" width="12" height="12" viewBox="0 0 12 12">
@@ -53,7 +54,7 @@ function WindowButtons() {
             <button
                 type="button"
                 title="Close"
-                className="p-2 hover:bg-red-300"
+                className="p-2 hover:bg-red-300 transition duration-200"
                 onClick={closeWindow}
             >
                 <svg aria-hidden="true" role="img" width="12" height="12" viewBox="0 0 12 12">

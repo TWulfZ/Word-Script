@@ -21,8 +21,14 @@ export default defineConfig((env) => {
         resolve: {
             preserveSymlinks: true,
             alias: {
-                "@": path.resolve(__dirname, "./src"),
-            },
+                '@': path.resolve(__dirname, './src'),
+                '@lib': path.resolve(__dirname, './src/lib'),
+                '@services': path.resolve(__dirname, './src/services'),
+                '@components': path.resolve(__dirname, './src/components'),
+                '@hooks': path.resolve(__dirname, './src/hooks'),
+                '@utils': path.resolve(__dirname, './src/utils'),
+                '@assets': path.resolve(__dirname, './src/assets'),
+              },
         },
         clearScreen: false,
     } as UserConfig;

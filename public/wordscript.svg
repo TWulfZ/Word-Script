@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="800.17761"
+   height="800.17761"
+   viewBox="0 0 20.00444 20.00444"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">script [#1603]</title>
+  <desc
+     id="desc1">Created with Sketch.</desc>
+  <defs
+     id="defs1" />
+  <rect
+     style="fill:#3088f0;fill-opacity:0.980392;stroke:#3088f1;stroke-width:0.0073989;stroke-opacity:0.980392"
+     id="rect2"
+     width="19.997042"
+     height="19.997042"
+     x="0.0036994503"
+     y="0.0036994503"
+     ry="6.5602479" />
+  <path
+     d="M 14.274169,5.5297842 V 2.8199023 c 1.494539,0 3.079411,1.2154177 3.079411,2.7098819 z m -0.842667,9.9897338 c 0,1.014291 -0.824844,1.83911 -1.839118,1.83911 v -1.83911 c 0,-1.016122 -0.823005,-1.83911 -1.8391188,-1.83911 H 6.0750285 V 5.0513592 c 0,-1.0161225 0.8230043,-2.4056112 1.8391184,-2.4056112 h 5.5173551 z m -2.807415,1.877404 H 4.3229874 c -1.1583513,0 -1.9210009,-1.75478 -1.9210009,-2.91309 h 7.3512787 c 0.5797038,0 0.8708218,0.765963 0.8708218,1.345701 z M 14.275227,1.8990986 H 8.0981578 c -1.8280547,0 -3.0392684,1.3097374 -3.0392684,3.1377755 V 13.607899 H 2.3053025 c -0.4568139,0 -0.8275579,0.07492 -0.8275579,0.532037 v 0.827566 c 0,1.828038 1.5067849,3.113134 3.3348396,3.113134 h 6.6204218 c 1.828054,0 2.916111,-1.285096 2.916111,-3.113134 V 6.3471942 h 2.852111 c 0.456814,0 0.827558,-0.025807 0.827558,-0.4827539 V 5.0368741 c 0,-1.8280381 -1.925505,-3.1377755 -3.753559,-3.1377755 z"
+     id="script-[#1603]-5"
+     style="display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0.832478" />
+  <text
+     xml:space="preserve"
+     style="font-size:15.2296px;font-family:Strippy;-inkscape-font-specification:Strippy;letter-spacing:0px;word-spacing:0px;display:inline;fill:#3088f0;fill-opacity:0.980392;stroke:#3088f1;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:0.980392"
+     x="2.5113308"
+     y="15.320267"
+     id="text1-8"><tspan
+       id="tspan1-8"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Strippy;-inkscape-font-specification:Strippy;fill:#ffffff;fill-opacity:0.980392;stroke:#3088f1;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:0.980392"
+       x="2.5113308"
+       y="15.320267">W</tspan></text>
+  <metadata
+     id="metadata4">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>script [#1603]</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
