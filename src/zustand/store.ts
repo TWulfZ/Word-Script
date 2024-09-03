@@ -28,9 +28,9 @@ export const useConfigStore = create<ConfigState>((set) => ({
 }));
 
 interface DataState {
-  csvData: string[][];
+  csvData: object[];
   fileName: string;
-  setCsvData: (csvData: string[][]) => void;
+  setCsvData: (csvData: object[]) => void;
   setFileName: (fileName: string) => void;
 }
 

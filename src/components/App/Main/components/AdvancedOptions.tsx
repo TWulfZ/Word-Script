@@ -1,11 +1,10 @@
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import { Label } from '@radix-ui/react-label';
 import { Switch } from '@/components/ui/switch';
-import ColorBadge from '../../ColorBadge';
+import ColorBadge from '../../../ColorBadge';
 import { cn } from '@/lib/utils';
 import { useConfigStore } from '@/zustand/store';
 

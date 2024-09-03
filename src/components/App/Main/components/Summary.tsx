@@ -5,6 +5,7 @@ import { ListIcon } from "lucide-react";
 import { useConfigStore, useDataStore, useSessionStore } from "@/zustand/store";
 import Info from "./Info";
 import { Input } from "@/components/ui/input";
+import { truncateText } from "@/utils/truncateText";
 
 const Summary = () => {
   const { csvData} = useDataStore();
@@ -39,22 +40,22 @@ const Summary = () => {
                   Número de filas: <Badge variant="secondary">{csvData.length - 1}</Badge>
                 </span>
                 <span>
-                  Número de columnas: <Badge variant="secondary">{csvData[0].length}</Badge>
+                  Número de columnas: <Badge variant="secondary">{Object.keys(csvData[0]).length}</Badge>
                 </span>
               </div>
               <div>
                 <span className="font-medium">Columnas:</span>
                 <div className="mt-2 flex flex-wrap gap-2">
-                  {csvData[0].map((columnName) => (
+                  {Object.keys(csvData[0]).map((columnName) => (
                     <Badge
                       key={columnName}
                       variant="outline"
-                      className={`cursor-pointer ${
-                        selectedColumn && selectedColumn.name === columnName ? "bg-blue-100 text-blue-800" : ""
-                      }`}
+                      className={`max-w-32 cursor-pointer truncate ${
+                        selectedColumn && selectedColumn.name === columnName ? "bg-blue-100 text-blue-800" : "hover:bg-blue-50"
+                       }`}
                       onClick={() => handleBadgeClick(columnName)}
                     >
-                      {columnName}
+                      {truncateText(columnName, { maxChars: 21})}
                     </Badge>
                   ))}
                 </div>

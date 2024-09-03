@@ -1,5 +1,5 @@
 import Header from "@components/App/Header";
-import Main from "@components/App/Main";
+import Main from "@/components/App/Main/components";
 import Footer from "@components/App/Footer";
 
 export default function App() {
