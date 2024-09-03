@@ -9,8 +9,7 @@ import Summary from "@/components/App/Main/components/Summary";
 import { useEffect } from "react";
 import { useConfigStore, useDataStore, useSessionStore } from "@/zustand/store";
 // Utils
-import Papa, { ParseResult } from "papaparse";
-import { colsUpdate } from "../function/update.main";
+import { csvUpload, docUpload, colsUpdate } from "../functions";
 
 export interface Column {
   name: string;
@@ -24,29 +23,11 @@ const Main = () => {
   const { setSelectedColumn } = useSessionStore();
 
   const handleCSVUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputFile = e.target.files?.[0];
-    if (!inputFile) {
-      return;
-    }
-    Papa.parse(inputFile, {
-      header: true,
-      dynamicTyping: true,
-      skipEmptyLines: true,
-      complete: (result: ParseResult<string[]>) => {
-        const cols = result.data;
-        console.log(cols); // TODO: Remove debug cols
-        setCsvData(cols);
-      },
-    });
-
-    setFileName(inputFile.name);
+    csvUpload({ event: e, setCsvData, setFileName });
   };
 
   const handleDocUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputFile = e.target.files?.[0];
-    if (!inputFile) {
-      return;
-    }
+    //docUpload()
   };
 
   useEffect(() => {
