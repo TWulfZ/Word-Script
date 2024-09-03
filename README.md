@@ -64,6 +64,3 @@ Las contribuciones son bienvenidas. Por favor, crea un *fork* del repositorio y 
 ## Licencia
 
 Este proyecto está bajo la Licencia MIT. Para más detalles, consulta el archivo [LICENSE](LICENSE).
-
-## Contacto
-
