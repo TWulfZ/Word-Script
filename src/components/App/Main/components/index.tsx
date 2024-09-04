@@ -7,26 +7,38 @@ import AdvancedOptions from "@/components/App/Main/components/AdvancedOptions";
 import Summary from "@/components/App/Main/components/Summary";
 
 import { useEffect, useState } from "react";
-import { useConfigStore, useDataStore, useSessionStore } from "@/zustand/store";
+import { TFields, useConfigStore, useDataStore, useSessionStore } from "@/zustand/store";
 // Utils
 import { csvUpload, docUpload, colsUpdate } from "../functions";
+import FieldAlert from "./FieldAlert";
 
 const Main = () => {
   const { csvData, setCsvData } = useDataStore();
   const { fileName, setFileName } = useDataStore();
   const { docFile, setDocFile } = useDataStore();
+  const { docFields, setDocFields } = useDataStore();
   const { columns, setColumns } = useConfigStore();
   const { setSelectedColumn } = useSessionStore();
+
+  const [fields, setFields] = useState<TFields | null>(null);
+  const [alertOpen, setAlertOpen] = useState(false);
 
   const handleCSVUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     csvUpload({ event: e, setCsvData, setFileName });
   };
 
   const handleDocUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    // reset fields
+    setDocFile(null);
+    setDocFields({ foundFields: [], missingFields: [] });
+    setFields(null);
+
     const fields = await docUpload({event: e, columns, setDocFile});
 
-    console.log(fields);
-    
+    if (fields?.missingFields && fields.missingFields.length > 0) {
+      setFields(fields);
+      setAlertOpen(true);
+    } 
   };
 
   useEffect(() => {
@@ -37,6 +49,7 @@ const Main = () => {
 
   return (
     <main className="transition-all duration-300 ease-in-out">
+      
       <div className="space-y-6">
         <div className="flex items-center space-x-4">
           <Button variant="outline" onClick={() => document.getElementById("csv-upload")?.click()}>
@@ -58,6 +71,9 @@ const Main = () => {
         </div>
         <AdvancedOptions />
       </div>
+      {alertOpen && (
+        <FieldAlert fields={fields} setAlertOpen={setAlertOpen} setDocFields={setDocFields}/>
+      )}
     </main>
   );
 };

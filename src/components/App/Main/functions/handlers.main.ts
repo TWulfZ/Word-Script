@@ -1,6 +1,6 @@
 import Papa, { ParseResult } from "papaparse";
 import { getFieldsFrom } from "@/utils/loadFile";
-import { Column } from "@/zustand/store";
+import { Column, TFields } from "@/zustand/store";
 
 interface TCsvUpload {
   event: React.ChangeEvent<HTMLInputElement>;
@@ -31,11 +31,6 @@ interface TDocxUpload {
   event: React.ChangeEvent<HTMLInputElement>;
   columns: Column[]
   setDocFile: (docFile: File) => void
-}
-
-type TFields = {
-  foundFields: string[];
-  missingFields: string[];
 }
 
 export const docUpload = async ({event, columns, setDocFile}: TDocxUpload): Promise<undefined | TFields> => {

@@ -1,8 +1,13 @@
 import { create } from "zustand";
 
-export interface Column {
+export type Column = {
   name: string;
   value: string;
+}
+
+export type TFields = {
+  foundFields: string[];
+  missingFields: string[];
 }
 
 export interface AdvancedOptions {
@@ -30,19 +35,23 @@ export const useConfigStore = create<ConfigState>((set) => ({
 interface DataState {
   docFile: File | null;
   csvData: object[];
+  docFields: TFields;
   fileName: string;
   setCsvData: (csvData: object[]) => void;
   setFileName: (fileName: string) => void;
-  setDocFile: (docFile: File) => void;
+  setDocFile: (docFile: File | null) => void;
+  setDocFields: (docFields: TFields) => void;
 }
 
 export const useDataStore = create<DataState>((set) => ({
   docFile: null,
   csvData: [],
   fileName: "",
+  docFields: { foundFields: [], missingFields: [] },
   setCsvData: (csvData) => set((state) => ({ ...state, csvData })),
   setFileName: (fileName) => set((state) => ({ ...state, fileName })),
   setDocFile: (docFile) => set((state) => ({ ...state, docFile })),
+  setDocFields: (docFields) => set((state) => ({ ...state, docFields })),
 }));
 
 interface SessionState {
