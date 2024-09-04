@@ -1,12 +1,14 @@
 import Papa, { ParseResult } from "papaparse";
+import { getFieldsFrom } from "@/utils/loadFile";
+import { Column } from "@/zustand/store";
 
-interface Parameters {
+interface TCsvUpload {
   event: React.ChangeEvent<HTMLInputElement>;
   setCsvData: (csvData: object[]) => void;
   setFileName: (fileName: string) => void;
 }
 
-export const csvUpload = ({event, setCsvData, setFileName}: Parameters) => {
+export const csvUpload = ({event, setCsvData, setFileName}: TCsvUpload) => {
   const inputFile = event.target.files?.[0];
     if (!inputFile) {
       return;
@@ -25,6 +27,30 @@ export const csvUpload = ({event, setCsvData, setFileName}: Parameters) => {
     setFileName(inputFile.name);
 }
 
-export const docUpload = ({event}: Parameters) => {
-  
+interface TDocxUpload {
+  event: React.ChangeEvent<HTMLInputElement>;
+  columns: Column[]
+  setDocFile: (docFile: File) => void
+}
+
+type TFields = {
+  foundFields: string[];
+  missingFields: string[];
+}
+
+export const docUpload = async ({event, columns, setDocFile}: TDocxUpload): Promise<undefined | TFields> => {
+  const inputFile = event.target.files?.[0];
+  if (!inputFile) {
+    return;
+  }
+  console.log("Uploading..."); // TODO: Remove debug upload
+  setDocFile(inputFile);
+
+  const cols = columns.map(col => col.value);
+  const fields = await getFieldsFrom(inputFile, cols);
+  /*if (fields && fields.missingFields.length > 0) {
+    return confirm(`Faltan las siguientes columnas: ${fields.missingFields.join(", ")}`) ? null : fields;
+  }*/
+
+  return fields;
 }

@@ -18,6 +18,8 @@
     "@radix-ui/react-switch": "^1.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "docx-templates": "^4.13.0",
+    "jszip": "^3.10.1",
     "lucide-react": "^0.438.0",
     "papaparse": "^5.4.1",
     "react": "^18.3.1",

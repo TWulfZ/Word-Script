@@ -28,17 +28,21 @@ export const useConfigStore = create<ConfigState>((set) => ({
 }));
 
 interface DataState {
+  docFile: File | null;
   csvData: object[];
   fileName: string;
   setCsvData: (csvData: object[]) => void;
   setFileName: (fileName: string) => void;
+  setDocFile: (docFile: File) => void;
 }
 
 export const useDataStore = create<DataState>((set) => ({
+  docFile: null,
   csvData: [],
   fileName: "",
   setCsvData: (csvData) => set((state) => ({ ...state, csvData })),
   setFileName: (fileName) => set((state) => ({ ...state, fileName })),
+  setDocFile: (docFile) => set((state) => ({ ...state, docFile })),
 }));
 
 interface SessionState {

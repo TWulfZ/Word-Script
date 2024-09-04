@@ -83,7 +83,8 @@ const Summary = () => {
 
               {/* Markers Columns*/}
               {selectedColumn && (
-                <div key={selectedColumn.name} className="flex items-center space-x-2">
+                <div key={selectedColumn.name} className="flex flex-col space-x-2">
+                  <span className="text-sm font-bold mx-2 mb-1">Columna: <ColorBadge className="rounded-xl font-semibold">{selectedColumn.name}</ColorBadge></span>
                   <Input
                     value={selectedColumn.value}
                     className="flex-grow"

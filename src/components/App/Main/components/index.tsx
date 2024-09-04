@@ -6,28 +6,27 @@ import Info from "@/components/App/Main/components/Info";
 import AdvancedOptions from "@/components/App/Main/components/AdvancedOptions";
 import Summary from "@/components/App/Main/components/Summary";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useConfigStore, useDataStore, useSessionStore } from "@/zustand/store";
 // Utils
 import { csvUpload, docUpload, colsUpdate } from "../functions";
 
-export interface Column {
-  name: string;
-  value: string;
-}
-
 const Main = () => {
   const { csvData, setCsvData } = useDataStore();
   const { fileName, setFileName } = useDataStore();
-  const { setColumns } = useConfigStore();
+  const { docFile, setDocFile } = useDataStore();
+  const { columns, setColumns } = useConfigStore();
   const { setSelectedColumn } = useSessionStore();
 
   const handleCSVUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     csvUpload({ event: e, setCsvData, setFileName });
   };
 
-  const handleDocUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //docUpload()
+  const handleDocUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fields = await docUpload({event: e, columns, setDocFile});
+
+    console.log(fields);
+    
   };
 
   useEffect(() => {
