@@ -15,8 +15,6 @@ const getContentFields = (content: string, list: string[]) => {
 export const getFieldsFrom = async (file: File, list: string[]) => {
   if (!file) return;
 
-  console.log(list);
-  
   const string = await getContentFromFile(file);
   const foundFields = await getContentFields(string, list);
   const missingFields = list.filter(field => !foundFields.includes(field));

@@ -5,16 +5,21 @@ import { toast } from "react-toastify";
 
 interface Props {
   fields: TFields | null;
+  docName: string
   setDocFields: (fields: TFields) => void;
+  setDocName: (name: string) => void;
   setAlertOpen: (open: boolean) => void;
 }
 
-const FieldAlert = ({ fields, setDocFields, setAlertOpen }: Props) => {
+const FieldAlert = ({ fields, docName, setDocFields, setAlertOpen, setDocName }: Props) => {
   const onConfirm = () => {
     if (fields?.foundFields && fields.foundFields.length > 0) {
       setDocFields(fields);
+      setDocName(docName);
+      setAlertOpen(false);
     } else {
       toast.error("No se encuentra ningun marcador en el documento");
+      setAlertOpen(false);
     }
   };
 
@@ -22,10 +27,10 @@ const FieldAlert = ({ fields, setDocFields, setAlertOpen }: Props) => {
     <Alert
       title="Campos faltantes en el documento"
       description={
-        <div>
+        <span>
           Faltan los siguientes marcadores en el documento:
           {fields?.missingFields.map((field, index) => <ColorBadge className="" color="red" key={index}>{field}</ColorBadge>)}
-        </div>
+        </span>
       }
       cancelText="Cancelar"
       confirmText="Continuar de Todas formas"

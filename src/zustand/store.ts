@@ -37,21 +37,25 @@ interface DataState {
   csvData: object[];
   docFields: TFields;
   fileName: string;
-  setCsvData: (csvData: object[]) => void;
-  setFileName: (fileName: string) => void;
+  docName: string;
   setDocFile: (docFile: File | null) => void;
+  setCsvData: (csvData: object[]) => void;
   setDocFields: (docFields: TFields) => void;
+  setFileName: (fileName: string) => void;
+  setDocName: (docName: string) => void;
 }
 
 export const useDataStore = create<DataState>((set) => ({
   docFile: null,
   csvData: [],
   fileName: "",
+  docName: "",
   docFields: { foundFields: [], missingFields: [] },
-  setCsvData: (csvData) => set((state) => ({ ...state, csvData })),
   setFileName: (fileName) => set((state) => ({ ...state, fileName })),
+  setCsvData: (csvData) => set((state) => ({ ...state, csvData })),
   setDocFile: (docFile) => set((state) => ({ ...state, docFile })),
   setDocFields: (docFields) => set((state) => ({ ...state, docFields })),
+  setDocName: (docName) => set((state) => ({ ...state, docName })),
 }));
 
 interface SessionState {

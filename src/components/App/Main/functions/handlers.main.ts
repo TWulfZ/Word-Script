@@ -33,14 +33,14 @@ interface TDocxUpload {
   setDocFile: (docFile: File) => void
 }
 
-export const docUpload = async ({event, columns, setDocFile}: TDocxUpload): Promise<undefined | TFields> => {
+export const docUpload = async ({event, columns, setDocFile}: TDocxUpload): Promise<TFields | undefined> => {
   const inputFile = event.target.files?.[0];
   if (!inputFile) {
     return;
   }
-  console.log("Uploading..."); // TODO: Remove debug upload
   setDocFile(inputFile);
-
+  console.log("-- Setted Doc File --");
+  
   const cols = columns.map(col => col.value);
   const fields = await getFieldsFrom(inputFile, cols);
   /*if (fields && fields.missingFields.length > 0) {

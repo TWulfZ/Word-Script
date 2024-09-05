@@ -13,13 +13,16 @@ import { csvUpload, docUpload, colsUpdate } from "../functions";
 import FieldAlert from "./FieldAlert";
 
 const Main = () => {
-  const { csvData, setCsvData } = useDataStore();
+  // CSV
   const { fileName, setFileName } = useDataStore();
+  const { csvData, setCsvData } = useDataStore();
+  // Doc
+  const { docName, setDocName } = useDataStore();
   const { docFile, setDocFile } = useDataStore();
   const { docFields, setDocFields } = useDataStore();
+  // PageState
   const { columns, setColumns } = useConfigStore();
   const { setSelectedColumn } = useSessionStore();
-
   const [fields, setFields] = useState<TFields | null>(null);
   const [alertOpen, setAlertOpen] = useState(false);
 
@@ -27,17 +30,24 @@ const Main = () => {
     csvUpload({ event: e, setCsvData, setFileName });
   };
 
+
   const handleDocUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    // reset fields
+    // reset doc
+    setDocName("");
     setDocFile(null);
     setDocFields({ foundFields: [], missingFields: [] });
     setFields(null);
+    console.log("-- Doc Reset --");
+    
 
     const fields = await docUpload({event: e, columns, setDocFile});
 
     if (fields?.missingFields && fields.missingFields.length > 0) {
+      console.log("Missing fields:", fields.missingFields);
+      
       setFields(fields);
       setAlertOpen(true);
+      return;
     } 
   };
 
@@ -46,6 +56,10 @@ const Main = () => {
       colsUpdate({ csvData, setColumns, setSelectedColumn });
     }
   }, [csvData, setColumns, setSelectedColumn]);
+
+  useEffect(() => {
+    
+  },[])
 
   return (
     <main className="transition-all duration-300 ease-in-out">
@@ -65,14 +79,15 @@ const Main = () => {
         <div className="flex items-center space-x-4">
           <Button variant="outline" onClick={() => document.getElementById("template-upload")?.click()}>
             <FileUpIcon className="mr-2 h-4 w-4" />
-            Importar Plantilla
+            Importar Plantilla Docx
           </Button>
           <Input id="template-upload" type="file" accept=".docx" className="hidden" onChange={handleDocUpload}/>
+          {docName && <span className="text-sm text-muted-foreground">{docName}</span>}
         </div>
         <AdvancedOptions />
       </div>
       {alertOpen && (
-        <FieldAlert fields={fields} setAlertOpen={setAlertOpen} setDocFields={setDocFields}/>
+        <FieldAlert fields={fields} setAlertOpen={setAlertOpen} setDocFields={setDocFields} setDocName={setDocName} docName={docFile!.name}/>
       )}
     </main>
   );
