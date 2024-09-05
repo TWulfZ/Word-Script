@@ -37,18 +37,20 @@ const Main = () => {
     setDocFile(null);
     setDocFields({ foundFields: [], missingFields: [] });
     setFields(null);
-    console.log("-- Doc Reset --");
-    
 
     const fields = await docUpload({event: e, columns, setDocFile});
 
+    // Check if fields are missing
     if (fields?.missingFields && fields.missingFields.length > 0) {
-      console.log("Missing fields:", fields.missingFields);
-      
       setFields(fields);
       setAlertOpen(true);
       return;
     } 
+
+    // Set fields if has same length
+    if (fields && fields.foundFields.length === columns.length) {
+      setDocFields(fields);
+    }
   };
 
   useEffect(() => {
@@ -58,8 +60,11 @@ const Main = () => {
   }, [csvData, setColumns, setSelectedColumn]);
 
   useEffect(() => {
-    
-  },[])
+    // update doc name
+    if (docFile && docFields && docFields.foundFields.length === columns.length) {
+      setDocName(docFile.name);
+    }
+  },[docFile, docFields, setDocName, columns]);
 
   return (
     <main className="transition-all duration-300 ease-in-out">

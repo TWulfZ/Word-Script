@@ -39,7 +39,6 @@ export const docUpload = async ({event, columns, setDocFile}: TDocxUpload): Prom
     return;
   }
   setDocFile(inputFile);
-  console.log("-- Setted Doc File --");
   
   const cols = columns.map(col => col.value);
   const fields = await getFieldsFrom(inputFile, cols);
