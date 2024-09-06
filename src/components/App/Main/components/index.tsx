@@ -75,7 +75,6 @@ const Main = () => {
     // update doc name
     if (docFile && docFields && docFields.foundFields.length === columns.length) {
       setDocName(docFile.name);
-      console.log(csvData[5][columns[1].name]);
     }
   },[docFile, docFields, setDocName, columns, csvData]);
 

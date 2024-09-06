@@ -1,6 +1,6 @@
 import { truncateText } from "@/utils/truncateText";
 import { parseMarker } from "@/utils/parseMarker";
-import { Column } from "../components";
+import { Column } from "@/zustand/store";
 
 interface Parameters {
   csvData: object[];

@@ -8,7 +8,7 @@ import JSZip from "jszip";
 
 const Footer = () => {
   const { docFields, docFile, csvData, docName } = useDataStore();
-  const { columns, options } = useConfigStore();
+  const { columns } = useConfigStore();
   const [loading, setLoading] = useState(false);
 
   const downloadDocx = async () => {
