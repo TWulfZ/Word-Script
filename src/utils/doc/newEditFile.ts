@@ -1,16 +1,23 @@
 import JSZip from "jszip";
 import { getContentFromFile } from "./loadFile";
 import { Column } from "@/zustand/store";
+import { isDateString, parseAndFormatDate } from "../parseDate";
 
 const createNewXmlContent = (originalContent: string, configColumns: Column[], csvRow: object) => {
-    let newContent = originalContent;
+  let newContent = originalContent;
 
-    configColumns.forEach((col) => {
-      // @ts-expect-error csvRows has any object from CSV 
-        newContent = newContent.replaceAll(col.value, csvRow[col.name]);
-    })
+  configColumns.forEach((col) => {
+    // @ts-expect-error csvRows has any object from CSV 
+    let value = csvRow[col.name];
 
-    return newContent;
+    if (isDateString(value)) {
+      value = parseAndFormatDate(value);
+    }
+
+    newContent = newContent.replaceAll(col.value, value);
+  });
+
+  return newContent;
 };
 
 const newZipFile = async (originalFile: File, newContent: string) => {
