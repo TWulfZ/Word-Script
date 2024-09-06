@@ -71,12 +71,12 @@ const Summary = () => {
                   <p className="mt-2">En tu plantilla de Word</p>
                   <p className="my-1 border border-gray-200 p-2">
                     A nombre de <ColorBadge>{`{{nombre}}`}</ColorBadge>, respondio{" "}
-                    <ColorBadge color="emerald">{`{{Respuesta 1}}`}</ColorBadge>
+                    <ColorBadge>{`{{Respuesta 1}}`}</ColorBadge>
                   </p>
                   Marcador procesado
                   <p className="my-1 border border-gray-200 p-2">
                     A nombre de <ColorBadge>{`John Doe`}</ColorBadge>, respondio{" "}
-                    <ColorBadge color="emerald">{`Afirmativo`}</ColorBadge>
+                    <ColorBadge>{`Afirmativo`}</ColorBadge>
                   </p>
                 </Info>
               </Label>

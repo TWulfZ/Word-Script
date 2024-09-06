@@ -29,7 +29,7 @@ const FieldAlert = ({ fields, docName, setDocFields, setAlertOpen, setDocName }:
       description={
         <span>
           Faltan los siguientes marcadores en el documento:
-          {fields?.missingFields.map((field, index) => <ColorBadge className="" color="red" key={index}>{field}</ColorBadge>)}
+          {fields?.missingFields.map((field, index) => <ColorBadge className="" key={index}>{field}</ColorBadge>)}
         </span>
       }
       cancelText="Cancelar"
