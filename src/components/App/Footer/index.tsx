@@ -4,28 +4,33 @@ import { saveAs } from "file-saver";
 import { useConfigStore, useDataStore } from "@/zustand/store";
 import { FileTextIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import JSZip from "jszip";
 
 const Footer = () => {
   const { docFields, docFile, csvData, docName } = useDataStore();
-  const { columns } = useConfigStore();
-  // TODO: download a ZIP with all files
+  const { columns, options } = useConfigStore();
   const [loading, setLoading] = useState(false);
 
   const downloadDocx = async () => {
+    const baseName = docName.split(".")[0];
     setLoading(true);
     try {
-      const file = await getNewFile(docFile!, columns, csvData[0]);
-      console.log(file);
-      
-      if (file) {
-        const blob = await file.generateAsync({ type: "blob" });
-        console.log("Blob size:", blob.size);
-        saveAs(blob, docName);
-      } else {
-        console.error("No se pudo generar el archivo");
+      const zip = new JSZip();
+
+      for (let i = 0; i < csvData.length; i++) {
+        const file = await getNewFile(docFile!, columns, csvData[i]);
+        if (file) {
+          const blob = await file.generateAsync({ type: "blob" });
+          zip.file(`${baseName}_${i + 1}.docx`, blob);
+        } else {
+          console.error(`No se pudo generar el archivo para la fila ${i + 1}`);
+        }
       }
+
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      saveAs(zipBlob, `${baseName}_documentos.zip`);
     } catch (error) {
-      console.error("Error al generar el archivo:", error);
+      console.error("Error al generar los archivos:", error);
     } finally {
       setLoading(false);
     }
