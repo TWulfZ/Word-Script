@@ -31,31 +31,43 @@ const Main = () => {
   };
 
 
-  const handleDocUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    // reset doc
+  const resetDocState = () => {
     setDocName("");
     setDocFile(null);
     setDocFields({ foundFields: [], missingFields: [] });
     setFields(null);
-
-    const fields = await docUpload({event: e, columns, setDocFile});
-
-    // Check if fields are missing
+  };
+  
+  const handleMissingFields = (fields: TFields | undefined) => {
     if (fields?.missingFields && fields.missingFields.length > 0) {
       setFields(fields);
       setAlertOpen(true);
-      return;
-    } 
-
-    // Set fields if has same length
+      return true;
+    }
+    return false;
+  };
+  
+  const setFoundFields = (fields: TFields) => {
     if (fields && fields.foundFields.length === columns.length) {
       setDocFields(fields);
     }
+  };
+  
+  const handleDocUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    resetDocState();
+    const fields = await docUpload({event: e, columns, setDocFile});
+    
+    // Check if there are missing fields and ask for confirmation
+    if (handleMissingFields(fields)) return;
+    
+    setFoundFields(fields);
   };
 
   useEffect(() => {
     if (csvData.length > 0) {
       colsUpdate({ csvData, setColumns, setSelectedColumn });
+      console.log(csvData);
+      
     }
   }, [csvData, setColumns, setSelectedColumn]);
 
@@ -63,8 +75,9 @@ const Main = () => {
     // update doc name
     if (docFile && docFields && docFields.foundFields.length === columns.length) {
       setDocName(docFile.name);
+      console.log(csvData[5][columns[1].name]);
     }
-  },[docFile, docFields, setDocName, columns]);
+  },[docFile, docFields, setDocName, columns, csvData]);
 
   return (
     <main className="transition-all duration-300 ease-in-out">
@@ -84,7 +97,7 @@ const Main = () => {
         <div className="flex items-center space-x-4">
           <Button variant="outline" onClick={() => document.getElementById("template-upload")?.click()}>
             <FileUpIcon className="mr-2 h-4 w-4" />
-            Importar Plantilla Docx
+            Importar Plantilla
           </Button>
           <Input id="template-upload" type="file" accept=".docx" className="hidden" onChange={handleDocUpload}/>
           {docName && <span className="text-sm text-muted-foreground">{docName}</span>}

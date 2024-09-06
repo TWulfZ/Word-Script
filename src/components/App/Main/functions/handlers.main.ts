@@ -1,6 +1,7 @@
 import Papa, { ParseResult } from "papaparse";
-import { getFieldsFrom } from "@/utils/loadFile";
+import { getFieldsFrom } from "@/utils/doc/loadFile";
 import { Column, TFields } from "@/zustand/store";
+import { toast } from "react-toastify";
 
 interface TCsvUpload {
   event: React.ChangeEvent<HTMLInputElement>;
@@ -8,43 +9,43 @@ interface TCsvUpload {
   setFileName: (fileName: string) => void;
 }
 
-export const csvUpload = ({event, setCsvData, setFileName}: TCsvUpload) => {
-  const inputFile = event.target.files?.[0];
-    if (!inputFile) {
-      return;
-    }
-    Papa.parse(inputFile, {
-      header: true,
-      dynamicTyping: true,
-      skipEmptyLines: true,
-      complete: (result: ParseResult<string[]>) => {
-        const cols = result.data;
-        console.log(cols); // TODO: Remove debug cols
-        setCsvData(cols);
-      },
-    });
-
-    setFileName(inputFile.name);
-}
-
-interface TDocxUpload {
-  event: React.ChangeEvent<HTMLInputElement>;
-  columns: Column[]
-  setDocFile: (docFile: File) => void
-}
-
-export const docUpload = async ({event, columns, setDocFile}: TDocxUpload): Promise<TFields | undefined> => {
+export const csvUpload = ({ event, setCsvData, setFileName }: TCsvUpload) => {
   const inputFile = event.target.files?.[0];
   if (!inputFile) {
     return;
   }
-  setDocFile(inputFile);
+  console.log(inputFile.type);
   
-  const cols = columns.map(col => col.value);
-  const fields = await getFieldsFrom(inputFile, cols);
-  /*if (fields && fields.missingFields.length > 0) {
-    return confirm(`Faltan las siguientes columnas: ${fields.missingFields.join(", ")}`) ? null : fields;
-  }*/
+  Papa.parse(inputFile, {
+    header: true,
+    dynamicTyping: true,
+    skipEmptyLines: true,
+    complete: (result: ParseResult<string[]>) => {
+      const cols = result.data;
+      setCsvData(cols);
+    },
+  });
 
-  return fields;
+  setFileName(inputFile.name);
+};
+
+interface TDocxUpload {
+  event: React.ChangeEvent<HTMLInputElement>;
+  columns: Column[];
+  setDocFile: (docFile: File) => void;
 }
+
+export const docUpload = async ({ event, columns, setDocFile }: TDocxUpload): Promise<TFields> => {
+  const inputFile = event.target.files?.[0];
+  if (!inputFile) {
+    toast.error("No se ha seleccionado un archivo");
+    return { foundFields: [], missingFields: [] };
+  }
+
+  setDocFile(inputFile);
+
+  const cols = columns.map((col) => col.value);
+  const fields = await getFieldsFrom(inputFile, cols);
+
+  return fields ? fields : { foundFields: [], missingFields: [] };
+};
