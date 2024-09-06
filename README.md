@@ -21,7 +21,7 @@ Sigue estos pasos para instalar y ejecutar la aplicación localmente.
 1. **Clona este repositorio:**
 
    ```bash
-   git clone https://github.com/twulfz/wordedit.git
+   git clone https://github.com/TWulfZ/Word-Script.git
    cd wordedit
    ```
 
