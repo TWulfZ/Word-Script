@@ -7,8 +7,8 @@ const createNewXmlContent = (originalContent: string, configColumns: Column[], c
   let newContent = originalContent;
 
   configColumns.forEach((col) => {
-    // @ts-expect-error csvRows has any object from CSV 
-    let value = csvRow[col.name];
+    // @ts-expect-error csvRows has any object from CSV
+    let value = csvRow[col.name] ?? "";
 
     if (isDateString(value)) {
       value = parseAndFormatDate(value);
@@ -24,15 +24,15 @@ const newZipFile = async (originalFile: File, newContent: string) => {
   const zip = new JSZip();
   const newFile = originalFile;
 
-  await zip.loadAsync(newFile).then(newFile => {
-    newFile.file('word/document.xml', newContent);
+  await zip.loadAsync(newFile).then((newFile) => {
+    newFile.file("word/document.xml", newContent);
   });
-  
+
   return zip;
-}
+};
 
 export const getNewFile = async (originalFile: File, configColumns: Column[], csvRow: object) => {
-  if(!originalFile || !configColumns || !csvRow) return;
+  if (!originalFile || !configColumns || !csvRow) return;
 
   const originalContent = await getContentFromFile(originalFile);
   const newContent = await createNewXmlContent(originalContent, configColumns, csvRow);
@@ -40,4 +40,4 @@ export const getNewFile = async (originalFile: File, configColumns: Column[], cs
   const newFile = await newZipFile(originalFile, newContent);
 
   return newFile;
-}
+};
